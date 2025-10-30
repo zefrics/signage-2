@@ -1,14 +1,8 @@
-$fs-t1: 45px; // 메인 제목 폰트 사이즈
-$fw-t1: 800; // 메인 제목 폰트 웨이트
+$fs-v1: 24px; // Input 라벨 폰트 사이즈
+$fw-v1: 500; // Input 라벨 폰트 웨이트
 
-$fs-l1: 21px; // View 라벨 폰트 사이즈
-$fw-l1: 400; // View 라벨 폰트 웨이트
-
-$fs-l2: 18px; // Input 라벨 폰트 사이즈
-$fw-l2: 500; // Input 라벨 폰트 웨이트
-
-$fs-c1: 42px; // View 폰트 사이즈
-$fw-c1: 600; // View 폰트 웨이트
+$fs-l1: 18px; // Input 라벨 폰트 사이즈
+$fw-l1: 500; // Input 라벨 폰트 웨이트
 
 $fs-i1: 21px; // Input 폰트 사이즈
 $fw-i1: 400; // Input 폰트 웨이트
@@ -93,7 +87,7 @@ body {
   display: flex; flex-direction: column;
   border: 3px solid $color-r5;
   .table-header {
-    display: grid; grid-template-columns: 1fr 1fr 1fr 240px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr 270px;
     border-bottom: 2px solid $color-r7;
     font-size: 18px; font-weight: 500;
     background-color: $color-r7;
@@ -111,10 +105,10 @@ body {
     display: flex; flex-direction: column;
     height: 100%;
     .table-content {
-      display: grid; grid-template-columns: 1fr 1fr 1fr 240px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr 270px;
       height: 100%;
       border-bottom: 1px solid $color-k8;
-      font-size: 21px;
+      font-size: $fs-v1; font-weight: $fw-v1;
       &:last-child {
         border-bottom: none;
       }
@@ -221,8 +215,8 @@ body {
     .input-container {
       .label {
         margin-bottom: 9px;
-        font-size: $fs-l2;
-        font-weight: $fw-l2;
+        font-size: $fs-l1;
+        font-weight: $fw-l1;
         color: $color-k1;
       }
       input {
@@ -268,15 +262,14 @@ body {
 
 .btn-group {
   display: flex; gap: 30px;
-  .btn-1, .btn-2 {
+  .btn-1, .btn-2, .btn-3 {
     display: flex; justify-content: center; align-items: center; gap: 12px;
     cursor: pointer;
     height: 60px;
     width: 165px;
     padding: 0;
-    border: 0; border-radius: 12px;
+    border-radius: 12px;
     font-size: 21px; font-weight: 500;
-    color: $color-w1;
     img {
       height: 21px; width: 21px;
     }
@@ -286,9 +279,18 @@ body {
     }
   }
   .btn-1 {
+    border: 0;
     background-color: $color-r1;
+    color: $color-w1;
   }
   .btn-2 {
+    border: 0;
     background-color: $color-g1;
+    color: $color-w1;
+  }
+  .btn-3 {
+    border: 3px solid $color-g1;
+    background-color: $color-w1;
+    color: $color-g1;
   }
 }

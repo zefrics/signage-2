@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const { order, testMachine, model, purpose, startDate, endDate } = data;
 
       const scheduleText = (startDate || endDate)
-        ? `${formatDate(startDate)}&nbsp;&nbsp;~&nbsp;&nbsp;${formatDate(endDate)}`
+        ? `${formatDate(startDate)}&nbsp;~&nbsp;${formatDate(endDate)}`
         : '-';
 
       const tableRow = document.createElement('ul');
