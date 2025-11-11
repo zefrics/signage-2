@@ -1,28 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Header
   const viewHeader = document.querySelector('#view-header');
-  const listHeader = document.querySelector('#list-header');
-  const selectedHeader = document.querySelector('#selected-header');
-  const editHeader = document.querySelector('#edit-header');
+  const settingsHeader = document.querySelector('#settings-header');
+  const orderEditHeader = document.querySelector('#order-edit-header');
+  const slideEditHeader = document.querySelector('#slide-edit-header');
 
-  // Main
-  const viewSection = document.querySelector('#view-section');
-  const listSection = document.querySelector('#list-section');
-  const editSection = document.querySelector('#edit-section');
-
+  // Main Section
+  const listView = document.querySelector('#list-view');
+  const settings = document.querySelector('#settings');
+  const slideEdit = document.querySelector('#slide-edit');
+  const orderEdit = document.querySelector('#order-edit');
+  
   // Button
   const listButton = document.querySelector('#btn-list');
   const backToViewButtons = document.querySelectorAll('#btn-back-to-view');
   const backToListButton = document.querySelector('#btn-back-to-list');
+  const backfromSlideButton = document.querySelector('#btn-back-from-slide');
+  const orderButton = document.querySelector('#btn-order');
   const createButton = document.querySelector('#btn-create');
   const orderUpButton = document.querySelector('#btn-order-up');
   const orderDownButton = document.querySelector('#btn-order-down');
   const applyOrderButton = document.querySelector('#btn-apply-order');
-  const applyDataButton = document.querySelector('#btn-apply-data');
+  const applySlideButton = document.querySelector('#btn-apply-slide');
 
   // Container
   const viewContainer = document.querySelector('#view-container');
   const listContainer = document.querySelector('#list-container');
+  const orderEditContainer = document.querySelector('#order-edit-container');
+  
   
   // Edit
   const testMachineInput = document.querySelector('#input-test-machine');
@@ -67,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 이벤트 리스너를 제거하는 함수
   const removeActivityListeners = () => {
     ['mousemove', 'keydown', 'click'].forEach(event => {
-      editSection.removeEventListener(event, resetInactivityTimer);
-      listSection.removeEventListener(event, resetInactivityTimer);
+      slideEdit.removeEventListener(event, resetInactivityTimer);
+      settings.removeEventListener(event, resetInactivityTimer);
     });
     clearInterval(countdownInterval);
   };
@@ -76,21 +81,21 @@ document.addEventListener('DOMContentLoaded', () => {
   const showView = () => {
     // Header Toggle
     viewHeader.style.display = 'flex';
-    listHeader.style.display = 'none';
-    selectedHeader.style.display = 'none';
-    editHeader.style.display = 'none';
+    settingsHeader.style.display = 'none';
+    orderEditHeader.style.display = 'none';
+    slideEditHeader.style.display = 'none';
 
     // Main Toggle
-    viewSection.style.display = 'flex';
-    editSection.style.display = 'none';
-    listSection.style.display = 'none';
+    listView.style.display = 'flex';
+    slideEdit.style.display = 'none';
+    settings.style.display = 'none';
 
     // 타이머와 이벤트 리스너 정리
     clearTimeout(inactivityTimer);
     removeActivityListeners();
 
     // form 안의 모든 input, textarea 내용 초기화
-    const formElements = editSection.querySelectorAll('input, textarea');
+    const formElements = slideEdit.querySelectorAll('input, textarea');
     formElements.forEach(element => {
       // type="date"는 value를 ''로 설정해야 초기화됨
       if (element.type === 'date') {
@@ -105,24 +110,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // List 화면으로 전환 시 폼 초기화
     // Header Toggle
     viewHeader.style.display = 'none';
-    listHeader.style.display = 'flex';
-    selectedHeader.style.display = 'none';
-    editHeader.style.display = 'none';
+    settingsHeader.style.display = 'flex';
+    orderEditHeader.style.display = 'none';
+    slideEditHeader.style.display = 'none';
 
     // Main Toggle
-    viewSection.style.display = 'none';
-    listSection.style.display = 'flex';
-    editSection.style.display = 'none';
+    listView.style.display = 'none';
+    settings.style.display = 'flex';
+    slideEdit.style.display = 'none';
+    orderEdit.style.display = 'none';
 
     // 입력 폼이 보이면 타이머 시작
-    // 목록 화면으로 전환 시, 이전에 선택된 항목이 있다면 초기화
-    const anyChecked = listContainer.querySelector('.item-checkbox:checked');
-    if (anyChecked) {
-      anyChecked.checked = false;
-      listHeader.style.display = 'flex';
-      selectedHeader.style.display = 'none';
-    }
-
     updateList(); // 목록 화면으로 전환 시 데이터 로드 및 표시
     resetInactivityTimer(); // 타이머 타임아웃 시작
     
@@ -135,21 +133,46 @@ document.addEventListener('DOMContentLoaded', () => {
   const showCreateForm = () => {
     // Header Toggle
     viewHeader.style.display = 'none';
-    listHeader.style.display = 'none';
-    selectedHeader.style.display = 'none';
-    editHeader.style.display = 'flex';
+    settingsHeader.style.display = 'none';
+    orderEditHeader.style.display = 'none';
+    slideEditHeader.style.display = 'flex';
 
     // Main Toggle
-    viewSection.style.display = 'none';
-    listSection.style.display = 'none';
-    editSection.style.display = 'block';
+    listView.style.display = 'none';
+    settings.style.display = 'none';
+    slideEdit.style.display = 'flex';
 
     // 입력 폼이 보이면 타이머 시작
     resetInactivityTimer(); // 타이머 타임아웃 시작
     
     // 사용자 활동 감지를 위한 이벤트 리스너 추가
     ['mousemove', 'keydown', 'click'].forEach(event => {
-      editSection.addEventListener(event, resetInactivityTimer);
+      slideEdit.addEventListener(event, resetInactivityTimer);
+    });
+  };
+
+  const showOrderEdit = () => {
+    // Header Toggle
+    viewHeader.style.display = 'none';
+    settingsHeader.style.display = 'none';
+    orderEditHeader.style.display = 'flex';
+    slideEditHeader.style.display = 'none';
+
+    // Main Toggle
+    listView.style.display = 'none';
+    settings.style.display = 'none';
+    slideEdit.style.display = 'none';
+    orderEdit.style.display = 'flex';
+
+    // Up/Down 버튼 초기 비활성화
+    orderUpButton.disabled = true;
+    orderDownButton.disabled = true;
+
+    updateList(); // 순서 편집 목록을 데이터로 채웁니다.
+    resetInactivityTimer();
+
+    ['mousemove', 'keydown', 'click'].forEach(event => {
+      orderEdit.addEventListener(event, resetInactivityTimer);
     });
   };
 
@@ -190,12 +213,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // List 섹션의 내용을 업데이트하는 함수
   const updateList = () => {
     listContainer.innerHTML = ''; // 기존 목록 초기화
+    orderEditContainer.innerHTML = ''; // 순서 편집 목록 초기화
 
     const dataArray = storageManager.load();
     // order가 큰 순서대로 (최신순) 정렬
     const sortedData = dataArray.sort((a, b) => b.order - a.order);
 
-    sortedData.forEach(data => {
+    sortedData.forEach((data, index) => {
       const { order, testMachine, model, purpose, startDate, endDate } = data;
 
       const scheduleText = (startDate || endDate)
@@ -206,17 +230,32 @@ document.addEventListener('DOMContentLoaded', () => {
       tableRow.className = 'table-content';
       tableRow.dataset.order = order; // 데이터셋에 order 저장 (내부적으로 사용)
       tableRow.innerHTML = `
-        <li><input type="checkbox" class="item-checkbox" value="${order}"></li>
+        <li><span>${order}</span></li>
         <li><span>${testMachine || '-'}</span></li>
         <li><span>${model || '-'}</span></li>
         <li><span>${purpose || '-'}</span></li>
         <li><span>${scheduleText}</span></li>
         <li>
-          <button class="btn-delete" data-order="${order}" disabled>Delete</button>
-          <button class="btn-modify" data-order="${order}" disabled>Edit</button>
+          <button class="btn-delete" data-order="${order}">Delete</button>
+          <button class="btn-modify" data-order="${order}">Edit</button>
         </li>
       `;
       listContainer.appendChild(tableRow);
+
+      // order-edit-container를 위한 별도의 행 생성 (체크박스 포함)
+      const orderEditTableRow = document.createElement('ul');
+      orderEditTableRow.className = 'table-content';
+      orderEditTableRow.dataset.order = order;
+      const rowNumber = sortedData.length - index;
+      orderEditTableRow.innerHTML = `
+        <li><input type="checkbox" class="item-checkbox" value="${order}"></li>
+        <li><span>${rowNumber}</span></li>
+        <li><span>${testMachine || '-'}</span></li>
+        <li><span>${model || '-'}</span></li>
+        <li><span>${purpose || '-'}</span></li>
+        <li><span>${scheduleText}</span></li>
+      `;
+      orderEditContainer.appendChild(orderEditTableRow);
     });
   };
 
@@ -225,8 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault(); // form의 기본 제출 동작(새로고침) 방지
 
     // 폼 유효성 검사
-    if (!editSection.checkValidity()) {
-      editSection.reportValidity(); // 유효성 검사 실패 시 브라우저 기본 메시지 표시
+    if (!slideEdit.checkValidity()) {
+      slideEdit.reportValidity(); // 유효성 검사 실패 시 브라우저 기본 메시지 표시
       return; // 유효성 검사 실패 시 함수 종료
     }
 
@@ -269,49 +308,33 @@ document.addEventListener('DOMContentLoaded', () => {
     updateView(dataArray);
   };
 
-  // 체크박스 단일 선택 및 헤더 토글을 위한 이벤트 핸들러
-  const handleCheckboxChange = (event) => {
+  const handleOrderEditCheckboxChange = (event) => {
     if (event.target.matches('.item-checkbox')) {
       const clickedCheckbox = event.target;
-      const allCheckboxes = listContainer.querySelectorAll('.item-checkbox');
-      const allTableRows = listContainer.querySelectorAll('.table-content');
+      const allCheckboxes = orderEditContainer.querySelectorAll('.item-checkbox');
+      const allTableRows = orderEditContainer.querySelectorAll('.table-content');
 
-      // 모든 행의 'selected' 클래스를 제거하고 버튼을 비활성화
       allTableRows.forEach(row => {
         row.classList.remove('selected');
-        row.querySelector('.btn-modify').disabled = true;
-        row.querySelector('.btn-delete').disabled = true;
       });
 
-      // 클릭된 체크박스가 선택 상태일 때
       if (clickedCheckbox.checked) {
         const parentRow = clickedCheckbox.closest('.table-content');
 
-        // 다른 모든 체크박스 해제
         allCheckboxes.forEach(checkbox => {
           if (checkbox !== clickedCheckbox) {
             checkbox.checked = false;
           }
         });
-        
-        // 클릭된 체크박스의 부모 행에 'selected' 클래스를 추가하고 버튼 활성화
+
         if (parentRow) {
           parentRow.classList.add('selected');
-          parentRow.querySelector('.btn-modify').disabled = false;
-          parentRow.querySelector('.btn-delete').disabled = false;
         }
 
-        // 헤더 변경: selected-header 활성화
-        listHeader.style.display = 'none';
-        selectedHeader.style.display = 'flex';
-      } else {
-        // 헤더 변경: list-header 활성화
-        listHeader.style.display = 'flex';
-        selectedHeader.style.display = 'none';
       }
 
-      // Up/Down 버튼 상태 업데이트
-      const selectedRow = listContainer.querySelector('.table-content.selected');
+      // 체크박스 상태에 따라 Up/Down 버튼 활성화/비활성화
+      const selectedRow = orderEditContainer.querySelector('.table-content.selected');
       if (selectedRow) {
         updateOrderButtonsState(selectedRow);
       } else {
@@ -331,10 +354,6 @@ document.addEventListener('DOMContentLoaded', () => {
         storageManager.deleteData(order);
         loadData(); // view-section 데이터 갱신
         updateList(); // list-section 목록 갱신
-
-        // 헤더 상태를 초기화
-        listHeader.style.display = 'flex';
-        selectedHeader.style.display = 'none';
       }
     }
 
@@ -346,16 +365,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (dataToEdit) {
         editingOrder = order; // 수정 모드로 설정
-
-        // 폼에 데이터 채우기
+        // 폼에 데이터 채우기 및 화면 전환
         testMachineInput.value = dataToEdit.testMachine || '';
         modelInput.value = dataToEdit.model || '';
         purposeInput.value = dataToEdit.purpose || '';
         startDateInput.value = dataToEdit.startDate || '';
         endDateInput.value = dataToEdit.endDate || '';
-
-        // Edit 화면으로 전환
-        showCreateForm(); // showCreateForm을 재사용하여 Edit 화면으로 전환
+        showCreateForm();
       }
     }
   };
@@ -373,18 +389,31 @@ document.addEventListener('DOMContentLoaded', () => {
     orderDownButton.disabled = !selectedRow.nextElementSibling;
   };
 
+  // order-edit 테이블의 'New Order' 열 번호를 다시 매기는 함수
+  const updateOrderEditNumbers = () => {
+    const allRows = orderEditContainer.querySelectorAll('.table-content');
+    const totalRows = allRows.length;
+    allRows.forEach((row, index) => {
+      const newOrderCell = row.querySelector('li:nth-child(2) span');
+      if (newOrderCell) {
+        newOrderCell.textContent = totalRows - index;
+      }
+    });
+  };
 
   // 이벤트 리스너 연결
   listButton.addEventListener('click', showList);
   backToViewButtons.forEach(button => {
     button.addEventListener('click', showView);
   });
-  backToListButton.addEventListener('click', showList);
+  backToListButton.addEventListener('click', showList); // order-edit-header의 back 버튼
+  backfromSlideButton.addEventListener('click', showList);
   createButton.addEventListener('click', () => {
+    
     editingOrder = null; // 'Create' 버튼 클릭 시에만 수정 모드 해제
 
     // form 안의 모든 input 내용 초기화
-    const formElements = editSection.querySelectorAll('input, textarea');
+    const formElements = slideEdit.querySelectorAll('input, textarea');
     formElements.forEach(element => {
       if (element.type === 'date') {
         element.value = '';
@@ -395,36 +424,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     showCreateForm();
   });
-  applyDataButton.addEventListener('click', applyDataChanges);
+  applySlideButton.addEventListener('click', applyDataChanges);
+  orderButton.addEventListener('click', showOrderEdit);
   
-  // listContainer에 여러 이벤트 핸들러 연결
-  listContainer.addEventListener('click', (event) => {
-    handleCheckboxChange(event);
-    handleListAction(event);
-  });
+  listContainer.addEventListener('click', handleListAction);
+  orderEditContainer.addEventListener('click', handleOrderEditCheckboxChange);
 
   orderUpButton.addEventListener('click', () => {
-    const selectedRow = listContainer.querySelector('.table-content.selected');
+    const selectedRow = orderEditContainer.querySelector('.table-content.selected');
     if (selectedRow && selectedRow.previousElementSibling) {
       // DOM에서 요소의 위치를 위로 이동
-      listContainer.insertBefore(selectedRow, selectedRow.previousElementSibling);
+      orderEditContainer.insertBefore(selectedRow, selectedRow.previousElementSibling);
       updateOrderButtonsState(selectedRow);
+      updateOrderEditNumbers(); // 순서 변경 후 번호 다시 매기기
     }
   });
 
   orderDownButton.addEventListener('click', () => {
-    const selectedRow = listContainer.querySelector('.table-content.selected');
+    const selectedRow = orderEditContainer.querySelector('.table-content.selected');
     if (selectedRow && selectedRow.nextElementSibling) {
       // DOM에서 요소의 위치를 아래로 이동
-      listContainer.insertBefore(selectedRow.nextElementSibling, selectedRow);
+      orderEditContainer.insertBefore(selectedRow.nextElementSibling, selectedRow);
       updateOrderButtonsState(selectedRow);
+      updateOrderEditNumbers(); // 순서 변경 후 번호 다시 매기기
     }
   });
 
   applyOrderButton.addEventListener('click', () => {
     if (confirm("변경된 순서를 적용하시겠습니까?")) {
       // 현재 DOM 순서대로 data-order 값을 배열로 만듦
-      const orderedIds = Array.from(listContainer.querySelectorAll('.table-content'))
+      const orderedIds = Array.from(orderEditContainer.querySelectorAll('.table-content'))
                               .map(row => row.dataset.order);
       
       // storageManager를 통해 순서 저장
@@ -432,21 +461,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // 화면 갱신
       loadData(); // view-section 갱신
-      showList(); // list-section으로 돌아가면서 갱신
+      updateList(); // 현재 order-edit-section 갱신
+      // Up/Down 버튼 비활성화
+      orderUpButton.disabled = true;
+      orderDownButton.disabled = true;
     }
   });
 
-
   // 페이지가 처음 로드될 때 저장된 데이터를 불러옴
-  loadData();
+  loadData(); // list-view 갱신
 
-  // 초기 Status
+  // 초기 상태 설정
   viewHeader.style.display = 'flex';
-  listHeader.style.display = 'none';
-  selectedHeader.style.display = 'none';
-  editHeader.style.display = 'none';
+  settingsHeader.style.display = 'none';
+  orderEditHeader.style.display = 'none';
+  slideEditHeader.style.display = 'none';
 
-  viewSection.style.display = 'flex';
-  editSection.style.display = 'none';
-  listSection.style.display = 'none';
+  listView.style.display = 'flex';
+  orderEdit.style.display = 'none';
+  settings.style.display = 'none';
+  slideEdit.style.display = 'none';
 });

@@ -1,14 +1,17 @@
-$fs-v1: 24px; // Input 라벨 폰트 사이즈
-$fw-v1: 500; // Input 라벨 폰트 웨이트
+$fs-main-title: 48px; // Date 폰트 사이즈
+$fw-main-title: 800; // Date 폰트 웨이트
 
-$fs-l1: 18px; // Input 라벨 폰트 사이즈
-$fw-l1: 500; // Input 라벨 폰트 웨이트
+$fs-v1: 24px; // List View 폰트 사이즈
+$fw-v1: 500; // List View 폰트 웨이트
 
-$fs-i1: 21px; // Input 폰트 사이즈
-$fw-i1: 400; // Input 폰트 웨이트
+$fs-edit-label: 18px; // Input 라벨 폰트 사이즈
+$fw-edit-label1: 500; // Input 라벨 폰트 웨이트
 
-$fs-d1: 18px; // Date 폰트 사이즈
-$fw-d1: 400; // Date 폰트 웨이트
+$fs-edit-input1: 21px; // Input 폰트 사이즈
+$fw-edit-input1: 400; // Input 폰트 웨이트
+
+$fs-date1: 18px; // Date 폰트 사이즈
+$fw-date1: 400; // Date 폰트 웨이트
 
 $main-height: calc(100svh - 145px);
 
@@ -71,10 +74,15 @@ body {
       height: 45px; width: auto;
     }
     .date {
-      font-size: $fs-d1;
-      font-weight: $fw-d1;
+      font-size: $fs-date1;
+      font-weight: $fw-date1;
       color: $color-k5;
     }
+  }
+  .main-title {
+    font-size: $fs-main-title;
+    font-weight: $fw-main-title;
+
   }
 }
 
@@ -83,7 +91,7 @@ body {
   box-sizing: border-box;
 }
 
-#view-section {
+#list-view {
   display: flex; flex-direction: column;
   border: 3px solid $color-r5;
   .table-header {
@@ -133,77 +141,115 @@ body {
   }
 }
 
-#list-section {
-  display: flex; flex-direction: column;
-  border: 3px solid $color-g5;
-  .table-header {
-    display: grid; grid-template-columns: 60px 1fr 1fr 1fr 195px 210px;
-    border-bottom: 2px solid $color-g7;
-    font-size: 18px; font-weight: 500;
-    background-color: $color-g7;
-    li {
-      padding: 15px;
-      display: flex; align-items: center; justify-content: center;
-      border-right: 1px solid $color-k8;
-      &:last-child {
-        border-right: none;
+.settings-table {
+  &#settings {
+    display: flex; flex-direction: column;
+    border: 3px solid $color-g5;
+    .table-header {
+      display: grid; grid-template-columns: 75px 1fr 1fr 1fr 195px 210px;
+      border-bottom: 2px solid $color-g7;
+      font-size: 18px; font-weight: 500;
+      background-color: $color-g7;
+      li {
+        padding: 15px;
+        display: flex; align-items: center; justify-content: center;
+        border-right: 1px solid $color-k8;
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+    #list-container {
+      height: 100%;
+      display: grid; grid-template-rows: repeat(10, 1fr);
+
+      .table-content {
+        display: grid; grid-template-columns: 75px 1fr 1fr 1fr 195px 210px;
+        height: 100%;
+        border-bottom: 1px solid $color-k8;
+        font-size: 16.5px;
+        li {
+          display: flex; align-items: center; justify-content: center;
+          border-right: 1px solid $color-k8;
+          min-width: 0; // flex 아이템이 콘텐츠 크기보다 작아질 수 있도록 허용.  이렇게 해야 말줄임표 적용 가능
+          padding: 0 15px;
+          span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          &:last-child {
+            border-right: none;
+            gap: 15px;
+            .btn-modify, .btn-delete {
+              cursor: pointer;
+              height: 30px; width: 90px;
+              border: 0; border-radius: 3px;
+              font-size: 18px; font-weight: 500;
+              color: $color-w1;
+            }
+            .btn-modify { background-color: $color-g1; }
+            .btn-delete { background-color: $color-r1; }
+          }
+        }
       }
     }
   }
-  #list-container {
-    height: 100%;
-    display: grid; grid-template-rows: repeat(10, 1fr);
-
-    .table-content {
-      &.selected {
-        outline: 5px solid $color-g1;
-        outline-offset: -3px;
-      }
-      display: grid; grid-template-columns: 60px 1fr 1fr 1fr 195px 210px;
-      height: 100%;
-      border-bottom: 1px solid $color-k8;
-      font-size: 16.5px;
+  &#order-edit {
+    display: flex; flex-direction: column;
+    border: 3px solid $color-g5;
+    .table-header {
+      display: grid; grid-template-columns: 60px 120px 1fr 1fr 1fr 195px;
+      border-bottom: 2px solid $color-g7;
+      font-size: 18px; font-weight: 500;
+      background-color: $color-g7;
       li {
+        padding: 15px;
         display: flex; align-items: center; justify-content: center;
         border-right: 1px solid $color-k8;
-        min-width: 0; // flex 아이템이 콘텐츠 크기보다 작아질 수 있도록 허용.  이렇게 해야 말줄임표 적용 가능
-        padding: 0 15px;
-        span {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        &:first-child {
-          background-color: $color-g9;
-          input {
-            cursor: pointer;
-            height: 30px; width: 30px;
-            margin: 0; padding: 0;
-          }
-        }
         &:last-child {
           border-right: none;
-          gap: 15px;
-          .btn-modify, .btn-delete {
-            cursor: pointer;
-            height: 30px; width: 90px;
-            border: 0; border-radius: 3px;
-            font-size: 18px; font-weight: 500;
-            color: $color-w1;
-            &:disabled {
-              opacity: 0.3;
-              cursor: not-allowed;
+        }
+      }
+    }
+    #order-edit-container {
+      height: 100%;
+      display: grid; grid-template-rows: repeat(10, 1fr);
+
+      .table-content {
+        &.selected {
+          outline: 5px solid $color-g1;
+          outline-offset: -3px;
+        }
+        display: grid; grid-template-columns: 60px 120px 1fr 1fr 1fr 195px;
+        height: 100%;
+        border-bottom: 1px solid $color-k8;
+        font-size: 16.5px;
+        li {
+          display: flex; align-items: center; justify-content: center;
+          border-right: 1px solid $color-k8;
+          min-width: 0; // flex 아이템이 콘텐츠 크기보다 작아질 수 있도록 허용.  이렇게 해야 말줄임표 적용 가능
+          padding: 0 15px;
+          span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          &:first-child {
+            background-color: $color-g9;
+            input {
+              cursor: pointer;
+              height: 30px; width: 30px;
+              margin: 0; padding: 0;
             }
           }
-          .btn-modify { background-color: $color-g1; }
-          .btn-delete { background-color: $color-r1; }
         }
       }
     }
   }
 }
 
-#edit-section {
+#slide-edit {
   padding: 45px;
   border: 3px solid $color-g5;
   .input-group {
@@ -211,12 +257,12 @@ body {
     column-gap: 75px;
     row-gap: 45px;
     grid-template-columns: repeat(4, 1fr);
-    width: 100%;
+    width: 100%; height: fit-content;
     .input-container {
       .label {
         margin-bottom: 9px;
-        font-size: $fs-l1;
-        font-weight: $fw-l1;
+        font-size: $fs-edit-label;
+        font-weight: $fw-edit-label1;
         color: $color-k1;
       }
       input {
@@ -227,8 +273,8 @@ body {
         padding: 12px 15px;
         border: 1px solid $color-k6;
         border-radius: 6px;
-        font-size: $fs-i1;
-        font-weight: $fw-i1;
+        font-size: $fs-edit-input1;
+        font-weight: $fw-edit-input1;
         background-color: $color-w1;
         &::placeholder {
           color: $color-k6;
@@ -293,4 +339,8 @@ body {
     background-color: $color-w1;
     color: $color-g1;
   }
+}
+
+.hide {
+  display: none;
 }
