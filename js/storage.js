@@ -18,11 +18,6 @@ const storageManager = {
   addData(newData) {
     const dataArray = this.load();
 
-    if (dataArray.length >= 10) {
-      alert("최대 10개까지 저장할 수 있습니다.");
-      return false; // 저장 실패
-    }
-
     // order 값 계산: 기존 데이터가 있으면 가장 큰 order + 1, 없으면 1
     const maxOrder = dataArray.length > 0 ? Math.max(...dataArray.map(d => d.order)) : 0;
     newData.order = maxOrder + 1;

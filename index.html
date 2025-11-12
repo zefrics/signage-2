@@ -15,7 +15,10 @@
           <div class="date"></div>
         </div>
         <div class="btn-group">
-          <button id="btn-list" class="btn-2">
+          <button type="button" id="btn-change-view" class="btn-3">
+            <div class="text">Change View</div>
+          </button>
+          <button id="btn-settings" class="btn-2">
             <img src="img/settings.svg" alt="Settings">
             <div class="text">Settings</div>
           </button>
@@ -34,8 +37,8 @@
             </div>
           </button>
           <button id="btn-order" class="btn-2">
-            <img src="img/edit.svg" alt="order">
-            <div class="text">Order</div>
+            <img src="img/list.svg" alt="order">
+            <div class="text">Edit Order</div>
           </button>
           <button id="btn-create" class="btn-2">
             <img src="img/edit.svg" alt="create">
@@ -50,7 +53,7 @@
           Edit Order
         </div>
         <div class="btn-group">
-          <button type="button" id="btn-back-to-list" class="btn-1">
+          <button type="button" id="btn-back-from-create" class="btn-1">
             <img src="img/back.svg" alt="back">
             <div class="text">
               Back (<span class="countdown"></span>)
@@ -72,9 +75,8 @@
       </div>
       
       <div id="slide-edit-header" class="header-container">
-        <div class="logo-container">
-          <img src="img/logo.png" class="logo" alt="PHC Valeo">
-          <div class="date"></div>
+        <div id="slide-edit-title" class="main-title">
+          
         </div>
         <div class="btn-group">
           <button type="button" id="btn-back-from-slide" class="btn-1">
@@ -89,10 +91,43 @@
           </button>
         </div>
       </div>
-      
     </header>
 
     <main>
+      <div id="slide-view" class="section">
+        <div class="slide">
+          <div class="slide-content">
+            <h2 class="label">Test Machine</h2>
+            <p class="content test-machine-content">
+            </p>
+          </div>
+          <div class="slide-content">
+            <h2 class="label">Model</h2>
+            <p class="content model-content">
+            </p>
+          </div>
+          <div class="slide-content">
+            <h2 class="label">Purpose</h2>
+            <p class="content purpose-content">
+            </p>
+          </div>
+          <div class="slide-content">
+            <h2 class="label">Schedule</h2>
+            <p class="content schedule-content">
+            </p>
+          </div>
+        </div>
+        <div class="slider-controls">
+          <button id="btn-slide-prev">
+            <img src="img/prev.svg" alt="prev">
+          </button>
+          <span id="slide-counter"></span>
+          <button id="btn-slide-next">
+            <img src="img/next.svg" alt="next">
+          </button>
+        </div>
+      </div>
+
       <div id="list-view" class="section">
         <ul class="table-header">
           <li>Test Machine</li>
@@ -100,7 +135,7 @@
           <li>Purpose</li>
           <li>Schedule</li>
         </ul>
-        <div id="view-container">
+        <div id="list-view-container">
         </div>
       </div>
 
@@ -111,9 +146,9 @@
           <li>Model</li>
           <li>Purpose</li>
           <li>Schedule</li>
-          <li>Edit</li>
+          <li></li>
         </ul>
-        <div id="list-container">
+        <div id="settings-container" class="table-container">
           
         </div>
       </div>
@@ -127,7 +162,7 @@
           <li>Purpose</li>
           <li>Schedule</li>
         </ul>
-        <div id="order-edit-container">
+        <div id="order-edit-container" class="table-container">
           
         </div>
       </div>
@@ -156,14 +191,11 @@
           </div>
         </div>
       </form>
-
     </main>
-
-
-    
   </body>
 
   <script src="js/clock.js"></script>
   <script src="js/storage.js"></script>
+  <script src="js/slider.js"></script>
   <script src="js/toggleView.js"></script>
 </html>
