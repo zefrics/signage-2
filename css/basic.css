@@ -37,6 +37,7 @@ body {
 .section {
   height: calc(100svh - 145px);
   box-sizing: border-box;
+  border-radius: 15px;
 }
 
 #slide-view {
@@ -102,6 +103,8 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 285px;
   border-bottom: 2px solid rgba(240, 78, 35, 0.15);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
   font-size: 18px;
   font-weight: 500;
   background-color: rgba(240, 78, 35, 0.15);
@@ -159,6 +162,8 @@ body {
 }
 .settings-table .table-header {
   border-bottom: 2px solid rgba(153, 202, 59, 0.15);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
   font-size: 18px;
   font-weight: 500;
   background-color: rgba(153, 202, 59, 0.15);
@@ -216,7 +221,7 @@ body {
   height: 30px;
   width: 81px;
   border: 0;
-  border-radius: 3px;
+  border-radius: 6px;
   font-size: 18px;
   font-weight: 500;
   color: rgb(255, 255, 255);
@@ -324,7 +329,7 @@ body {
   height: 60px;
   width: 165px;
   padding: 0;
-  border-radius: 12px;
+  border-radius: 15px;
   font-size: 21px;
   font-weight: 500;
 }

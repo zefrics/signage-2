@@ -107,6 +107,7 @@ body {
 .section {
   height: $main-height;
   box-sizing: border-box;
+  border-radius: 15px;
 }
 
 #slide-view {
@@ -161,6 +162,8 @@ body {
   .table-header {
     display: grid; grid-template-columns: 1fr 1fr 1fr 285px;
     border-bottom: 2px solid $color-r7;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
     font-size: $fs-list-title; font-weight: $fw-list-title;
     background-color: $color-r7;
     li {
@@ -210,6 +213,8 @@ body {
   border: 3px solid $color-g5;
   .table-header {
     border-bottom: 2px solid $color-g7;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
     font-size: $fs-settings-title; font-weight: $fw-settings-title;
     background-color: $color-g7;
     li {
@@ -257,7 +262,7 @@ body {
             .btn-modify, .btn-delete {
               cursor: pointer;
               height: 30px; width: 81px;
-              border: 0; border-radius: 3px;
+              border: 0; border-radius: 6px;
               font-size: 18px; font-weight: 500;
               color: $color-w1;
             }
@@ -359,7 +364,7 @@ body {
     height: 60px;
     width: 165px;
     padding: 0;
-    border-radius: 12px;
+    border-radius: 15px;
     font-size: 21px; font-weight: 500;
     img {
       height: 21px; width: 21px;
