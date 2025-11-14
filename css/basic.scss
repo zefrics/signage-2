@@ -6,6 +6,7 @@ $fw-slide-label: 400; // Slide View Label 폰트 웨이트
 
 $fs-slide-content: 54px; // Slide View Content 폰트 사이즈
 $fw-slide-content: 600; // Slide View Content 폰트 웨이트
+$lh-slide-content: 63.5px; // Slide View Line Height
 
 $fs-list-title: 18px; // List View Title 폰트 사이즈
 $fw-list-title: 500; // List View Title 폰트 웨이트
@@ -30,7 +31,7 @@ $fw-date: 400; // Date 폰트 웨이트
 $lh-date: 24px; // Date Line Height
 
 
-$main-height: calc(100svh - 145px);
+$main-height: calc(100svh - 190px);
 
 
 $color-k1: rgba(0, 0, 0, 1);
@@ -75,7 +76,7 @@ $color-g9: rgba(153, 202, 59, 0.05);
 
 body {
   font-family: 'Pretendard', sans-serif;
-  padding: 30px;
+  padding: 54px 30px;
   user-select: none;
 }
 
@@ -113,14 +114,14 @@ body {
 #slide-view {
   position: relative;
   display: flex;
-  padding: 45px;
+  padding: 45px 45px 39px 45px;
   border: 3px solid $color-r6;
   .slide {
     display: flex; flex-direction: column; justify-content: space-between;
     width: 100%; // 말줄임표 구현을 위해 필요
     .slide-content {
       .label {
-        margin-bottom: 6px;
+        margin-bottom: 7.5px;
         font-size: $fs-slide-label;
         font-weight: $fw-slide-label;
         color: $color-r3;
@@ -128,9 +129,11 @@ body {
       .content {
         font-size: $fs-slide-content;
         font-weight: $fw-slide-content;
+        line-height: $lh-slide-content;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+
       }
     }
   }
